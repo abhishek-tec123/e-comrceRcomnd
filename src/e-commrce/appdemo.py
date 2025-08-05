@@ -172,14 +172,24 @@ def recommend(request: RecommendationRequest):
             "score": None,
             "image_url": None
         }]
-
+    def safe_float(val, default=0.0):
+        try:
+            return float(val)
+        except (TypeError, ValueError):
+            return default
+    def safe_int(val, default=0):
+        try:
+            return int(val)
+        except (TypeError, ValueError):
+            return default
+        
     results = []
     for _, row in recs.iterrows():
         results.append({
             "name": row['Name'],
             "brand": row.get('Brand', ''),
-            "rating": float(row.get('Rating', 0)),
-            "review_count": int(row.get('ReviewCount', 0)),
+            "rating": safe_float(row.get('Rating'), 0.0),
+            "review_count": safe_int(row.get('ReviewCount'), 0),
             "score": float(row['score']) if 'score' in row else None,
             "image_url": row.get('ImageURL', None)
         })
