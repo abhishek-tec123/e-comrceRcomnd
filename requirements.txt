@@ -1,0 +1,9 @@
+numpy<2.0.0
+pandas
+scikit-learn
+scikit-surprise
+matplotlib
+seaborn
+spacy
+fastapi
+uvicorn
